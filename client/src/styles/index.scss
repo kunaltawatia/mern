@@ -1,0 +1,49 @@
+@import url("https://use.typekit.net/mfd4yxv.css");
+
+@import "constants";
+@import "animations";
+
+html {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: poppins, sans-serif;
+  color: $gray-dark;
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  margin: 1rem 10rem;
+  min-height: 80vh;
+}
+
+@media only screen and (max-width: 1000px) {
+  .main {
+    margin: 1rem 0;
+  }
+}
+
+@import "components/loader";
+@import "components/button";
+@import "components/select";
+@import "components/input";
+@import "components/image";
+@import "components/link";
+@import "components/alerts";
+@import "components/login";
+
+@import "theme";
+
+@import "layout/header";
+@import "layout/footer";
+
+@import "screens/home";
+@import "screens/profile";
+@import "screens/not-found";
+@import "screens/articles";

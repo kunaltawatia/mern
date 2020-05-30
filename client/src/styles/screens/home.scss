@@ -1,0 +1,41 @@
+.home {
+  margin: 2rem 5rem;
+
+  .logo-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .logo-subtitle {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .image-holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5rem 0;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .home {
+    margin: 1rem;
+
+    .logo-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .logo-subtitle {
+      font-size: 1rem;
+    }
+
+    .image-holder {
+      margin: 1rem 0;
+    }
+  }
+}

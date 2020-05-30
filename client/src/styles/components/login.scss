@@ -1,0 +1,63 @@
+.login {
+  padding: 10px;
+  position: relative;
+
+  .dropdown {
+    background-color: $white;
+    border-radius: 15px;
+    position: absolute;
+    top: 78px;
+    right: 0;
+    padding: 20px 25px 20px 15px;
+    border: 2px solid $gray;
+
+    &:after {
+      content: "";
+      right: 30px;
+      top: -18px;
+      position: absolute;
+      border: 9px solid transparent;
+      border-bottom-color: $gray;
+    }
+
+    a {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.8rem;
+
+      svg {
+        stroke-width: 3px;
+      }
+    }
+  }
+
+  .profile-dropdown-appear {
+    opacity: 0;
+
+    &.profile-dropdown-appear-active {
+      opacity: 1;
+    }
+  }
+
+  .profile-dropdown-enter {
+    // opacity: 0;
+    transform: translate3d(35px, -60px, 0) scale(0);
+
+    &.profile-dropdown-enter-active {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  .profile-dropdown-exit {
+    opacity: 1;
+
+    &.profile-dropdown-exit-active {
+      opacity: 0;
+    }
+  }
+}
+
+.login-button {
+  margin-left: 15px;
+}

@@ -1,0 +1,132 @@
+.alert-wrapper {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 30rem;
+
+  .alert {
+    position: relative;
+    border: 2px solid $gray-mid;
+    border-left: 20px solid $success;
+    background-color: $white;
+    padding: 20px;
+    margin-top: 6px;
+    font-weight: 600;
+    font-size: 16px;
+    justify-content: flex-start;
+
+    .close-button {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      color: $gray-mid;
+    }
+
+    .icon-display {
+      background-color: $success;
+      margin: 0 1rem 0 0;
+      padding: 5px;
+      border-radius: 50%;
+      color: $white;
+    }
+
+    &.danger {
+      border-left-color: $danger;
+
+      .icon-display {
+        background-color: $danger;
+      }
+    }
+
+    &.info {
+      border-left-color: $info;
+
+      .icon-display {
+        background-color: $info;
+      }
+    }
+
+    &.warning {
+      border-left-color: $warning;
+
+      .icon-display {
+        background-color: $warning;
+      }
+    }
+
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .alert-wrapper {
+    left: 10px;
+    width: auto;
+
+    .alert {
+      padding-left: 10px;
+
+      .icon-display {
+        margin-right: 10px;
+      }
+    }
+
+  }
+}
+
+
+.prompt-modal {
+  position: absolute;
+  width: 22rem;
+  max-width: 70vw;
+  padding: 3rem 1rem;
+  border-radius: 15px;
+  border: 1.5px solid $gray-mid;
+  outline: none;
+
+  max-height: 80vh;
+  overflow: scroll;
+  background-color: $white;
+
+  .modal-close-button {
+    color: $gray;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+    }
+  }
+
+  h5 {
+    text-align: center;
+  }
+}
+
+@include keyframe(fade) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.prompt-modal-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color: #ffffff, $alpha: 0.95);
+  @include animation(0s, 0.3s, fade);
+}

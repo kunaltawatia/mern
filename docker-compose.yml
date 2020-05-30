@@ -1,0 +1,55 @@
+version: "2"
+
+services:
+  server:
+    build:
+      context: server
+      dockerfile: dockerfile.prod
+
+    volumes:
+      # Mounts the project directory on the host to /server inside the container,
+      # allowing you to modify the code without having to rebuild the image.
+      - ./server:/server
+      # Data present in the base image at the specified mount point will be copied
+      # over to the new volume upon volume initialization.
+      # node_modules from this new volume will be used and not from your local dev env.
+      - /server/node_modules/
+
+    # Expose ports [HOST:CONTAINER}
+    ports:
+      - "4040:4040"
+
+    # Set environment variables from this file
+    env_file:
+      - ./server/.env
+
+    # Overwrite any env var defined in .env file (if required)
+    environment:
+      - NODE_ENV=production
+      - MONGO_HOST=mongodb://mongo/mern
+
+    # Link to containers in another service.
+    # Links also express dependency between services in the same way as depends_on,
+    # so they determine the order of service startup.
+    links:
+      - mongo
+
+  mongo:
+    image: "mongo:4.2.6"
+
+    ports:
+      - "27017:27017"
+
+  client:
+    build:
+      context: client
+      dockerfile: dockerfile.prod
+
+    volumes:
+      - /client/node_modules/
+
+    ports:
+      - "80:80"
+
+    links:
+      - server

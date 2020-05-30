@@ -1,0 +1,21 @@
+# Use latest node version 12.16.1
+FROM node:12.16.1
+
+# set /server directory as default working directory
+WORKDIR /client
+
+# only copy package.json and package-lock.json
+# if there are changes in package.json
+ADD package*.json /client/
+
+# install production packages
+RUN npm install
+
+# copy all file from current dir to /server in container
+COPY . .
+
+# expose port 3000
+EXPOSE 3000
+
+# cmd to start service
+CMD [ "npm", "start" ]

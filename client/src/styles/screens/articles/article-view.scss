@@ -1,0 +1,227 @@
+.article-view {
+
+  margin: 0 1rem;
+
+  .article-title {
+    font-size: 42px;
+    color: $black;
+  }
+
+  .info-block {
+    flex-wrap: wrap-reverse;
+
+    &>* {
+      margin: 0.5rem 0;
+    }
+
+    .article-profile-box {
+      display: flex;
+      justify-content: flex-start;
+
+      .article-profile-box-name {
+        font-size: 14px;
+      }
+
+      .article-profile-box-date {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .article-desc {
+    font-size: 18px;
+    color: $gray-opaque;
+    white-space: pre-wrap;
+  }
+
+  .article-body {
+    font-size: 1rem;
+    color: $black;
+    white-space: pre-wrap;
+  }
+
+  .stats-block {
+    color: $gray;
+    font-weight: 600;
+
+    a,
+    p {
+      padding: 0;
+      font-size: 12px;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .like-button {
+      color: $gray-mid;
+      border: 1px solid $gray-mid;
+      margin: 5px !important;
+
+      svg {
+        stroke-width: 1;
+      }
+
+      &.liked {
+        margin: 4px !important;
+        color: $gray;
+        border: 2px solid $gray;
+
+        svg {
+          stroke-width: 3;
+        }
+      }
+    }
+  }
+
+  .comment {
+    transform: scale(0.9);
+
+    .comment-text {
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+
+    position: relative;
+
+    .dash {
+      position: absolute;
+      bottom: -1rem;
+      width: 100%;
+      height: 2px;
+      margin: 0rem auto;
+    }
+
+    .edit-comment {
+      width: auto;
+      min-width: 50%;
+      max-width: calc(100% - 1rem);
+      min-height: 4rem;
+      max-height: 30vh;
+
+      outline: none;
+
+      transition: none;
+
+      &::-webkit-resizer {
+        display: none;
+
+        border: 8px solid transparent;
+        border-bottom-color: $gray;
+        border-right-color: $gray;
+      }
+    }
+  }
+
+  .new-comment-block {
+    margin-top: 2rem;
+
+    .new-comment {
+      width: auto;
+      min-width: 50%;
+      max-width: calc(100% - 1rem);
+      min-height: 4rem;
+      max-height: 30vh;
+
+      outline: none;
+
+      transition: none;
+
+      &::-webkit-resizer {
+        display: none;
+
+        border: 8px solid transparent;
+        border-bottom-color: $gray;
+        border-right-color: $gray;
+      }
+    }
+  }
+}
+
+.user-likes-modal {
+  padding: 1rem;
+  padding-top: 0;
+  max-height: 80vh;
+  overflow: scroll;
+
+  .header {
+    position: sticky;
+    top: 0;
+    padding: 1rem 0;
+    z-index: 1;
+    background-color: $white;
+    color: $gray;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+    }
+
+    p {
+      font-size: 12px;
+      margin-left: 4px;
+    }
+  }
+
+  h5 {
+    margin: 0.5rem 0;
+    text-align: left;
+  }
+
+  .profile-box {
+    display: flex;
+    justify-content: flex-start;
+
+    .profile-box-name {
+      font-size: 14px;
+    }
+
+    .profile-box-email {
+      font-size: 12px;
+      padding: 0;
+      align-self: flex-start;
+    }
+
+    .icon-box {
+      color: $gray-mid;
+      margin-left: auto;
+    }
+
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .article-view {
+    .stats-block {
+      justify-content: space-between;
+
+      &>* {
+        margin: 0;
+      }
+
+      .like-button {
+        &:hover {
+          box-shadow: 0 3px 50px #8B8B8B70 !important;
+        }
+      }
+    }
+  }
+
+  .user-likes-modal {
+    .profile-box {
+      .profile-box-name {
+        font-size: 12px;
+      }
+
+      .icon-box {
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}

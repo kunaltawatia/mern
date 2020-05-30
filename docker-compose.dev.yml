@@ -1,0 +1,66 @@
+version: "2"
+
+services:
+  server:
+    build:
+      context: server
+      dockerfile: dockerfile.dev
+
+    volumes:
+      # Mounts the project directory on the host to /server inside the container,
+      # allowing you to modify the code without having to rebuild the image.
+      - ./server:/server
+      # Data present in the base image at the specified mount point will be copied
+      # over to the new volume upon volume initialization.
+      # node_modules from this new volume will be used and not from your local dev env.
+      - ./server/node_modules:/server/node_modules/
+
+    # Expose ports [HOST:CONTAINER}
+    ports:
+      - "3001:4040"
+
+    # Set environment variables from this file
+    env_file:
+      - ./server/.env
+
+    # Overwrite any env var defined in .env file (if required)
+    environment:
+      - NODE_ENV=development
+      - MONGO_HOST=mongodb://mongo/mern
+      - DEBUG=server:*
+
+    # Link to containers in another service.
+    # Links also express dependency between services in the same way as depends_on,
+    # so they determine the order of service startup.
+    links:
+      - mongo
+
+  mongo:
+    image: "mongo:4.2.6"
+    ports:
+      - "3002:27017"
+
+  client:
+    build:
+      context: client
+      dockerfile: dockerfile.dev
+
+    volumes:
+      # Mounts the project directory on the host to /client inside the container,
+      # allowing you to modify the code with hot reloading
+      - ./client:/client
+      - ./client/node_modules:/client/node_modules/
+
+    # Expose ports [HOST:CONTAINER}
+    ports:
+      - "3000:3000"
+
+    environment:
+      - DOCKER=true
+      - PROXY=http://server:4040
+      # ToDo: proxy env doesn't automatically 
+      # override base api url, have to provide empty string
+      - REACT_APP_BASE_API_URL=
+
+    links:
+      - server

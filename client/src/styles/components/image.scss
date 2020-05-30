@@ -1,0 +1,69 @@
+.image-holder {
+  position: relative;
+  overflow: hidden;
+
+  &::selection {
+    background-color: none;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+
+    &::selection {
+      background-color: none;
+    }
+  }
+
+  &.circle {
+    border-radius: 50%;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  &.clickable:not(.loading) {
+    cursor: pointer;
+    margin: 2px;
+
+    &:hover {
+      margin: 0;
+      border: 2px solid $gray-mid;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+
+      img {
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        top: 2px;
+        left: 2px;
+      }
+    }
+  }
+
+  &.loading {
+    img {
+      opacity: 0;
+    }
+
+    background-image: linear-gradient(90deg, transparent, $gray-light, transparent);
+    background-size: 1000px 1000px;
+    @include animation(0s, 1s, image-background-animation, linear, infinite);
+  }
+}
+
+@include keyframe(image-background-animation) {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}

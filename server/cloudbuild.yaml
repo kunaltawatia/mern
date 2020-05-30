@@ -1,0 +1,39 @@
+steps:
+    # build docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+    - 'build'
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/$REPO_NAME-server:$SHORT_SHA'
+    # docker file in server/dockerfile.prod
+    - '-f'
+    - 'dockerfile.prod'
+    - '.'
+    # github directorys
+    dir: 'server'
+    
+    # push built image to google container registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME-server:$SHORT_SHA']
+
+    # deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: 
+    - 'run'
+    - 'deploy'
+    # service name for server run
+    - '$REPO_NAME-server'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/$REPO_NAME-server:$SHORT_SHA'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    # allow public usage
+    - '--allow-unauthenticated'
+    # map service port to container's :4040
+    - '--port'
+    - '4040'
+    
+# image to be pushed
+images: ['gcr.io/$PROJECT_ID/$REPO_NAME-server']

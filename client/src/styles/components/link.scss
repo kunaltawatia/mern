@@ -1,0 +1,38 @@
+a {
+  text-decoration: none;
+  text-align: center;
+  font-family: poppins, sans-serif;
+  font-weight: 600;
+  color: $gray;
+  font-size: 1rem;
+  padding: 2px 8px;
+  cursor: pointer;
+
+  &:hover:not(.no-hover) {
+    background-image: linear-gradient(90deg, $gray-hover, $gray-hover);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    animation: link-background-animation 0.2s linear;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+
+  &.bold {
+    color: $gray-dark;
+    font-weight: bold;
+  }
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+@include keyframe(link-background-animation) {
+  0% {
+    background-position: -60px 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}

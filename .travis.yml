@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "12.16.1"
+services:
+  - mongodb
+cache:
+  directories:
+  - server/node_modules
+git:
+  depth: 3
+before_script:
+  - cd server
+  - npm install
+script:
+  - npm run test:check-coverage
+after_script:
+  - npm run report:coverage

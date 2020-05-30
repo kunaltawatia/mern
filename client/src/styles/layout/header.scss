@@ -1,0 +1,66 @@
+.navbar {
+    height: $header-height;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: sticky;
+    top: 0;
+    z-index: 500;
+
+    padding: 1rem 10%;
+
+    .logo {
+        font-weight: bold;
+    }
+
+    .mobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .navbar {
+        .mobile {
+            display: flex;
+        }
+        .no-mobile {
+            display: none;
+        }
+        .logo {
+            font-size: 12px;
+        }
+    }
+
+    .header-modal {
+        overflow: scroll;
+
+        .login-button {
+            margin: 0;
+        }
+
+        .header-dash {
+            margin: 1rem 0;
+            width: 80%;
+            height: 3px;
+            border-radius: 5px;
+            background-color: $gray-light;
+        }
+
+        .header-link {
+            padding: 0;
+            font-size: 24px;
+            margin: 0.4rem 0;
+
+            &:first-child {
+                margin-top: 1.2rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        padding: 0 1rem;
+        .logo {
+            font-size: 8px;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+steps:
+    # build docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+    - 'build'
+    - '-t'
+    - 'gcr.io/$PROJECT_ID/$REPO_NAME-client:$SHORT_SHA'
+    # docker file in client/dockerfile.prod
+    - '-f'
+    - 'dockerfile.prod'
+    # pass build args for docker to further pipe into env variable in npm run build
+    - '--build-arg'
+    - 'REACT_APP_CLIENT_ID=$_REACT_APP_CLIENT_ID'
+    - '--build-arg'
+    - 'REACT_APP_BASE_API_URL=$_REACT_APP_BASE_API_URL'
+    - '.'
+    # github directory
+    dir: 'client'
+    
+    # push built image to google container registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME-client:$SHORT_SHA']
+
+    # deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: 
+    - 'run'
+    - 'deploy'
+    # service name for client run
+    - '$REPO_NAME-client'
+    - '--image'
+    - 'gcr.io/$PROJECT_ID/$REPO_NAME-client:$SHORT_SHA'
+    - '--region'
+    - 'us-central1'
+    - '--platform'
+    - 'managed'
+    # allow public usage
+    - '--allow-unauthenticated'
+    # map service port to container's :80
+    - '--port'
+    - '80'
+    
+# image to be pushed
+images: ['gcr.io/$PROJECT_ID/$REPO_NAME-client']

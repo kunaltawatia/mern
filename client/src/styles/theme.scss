@@ -1,0 +1,172 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+p {
+  margin: 0;
+
+  &::selection {
+    background-color: $yellow-light;
+  }
+}
+
+mark {
+  background-color: $yellow-light;
+}
+
+::selection {
+  background-color: transparent;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.div-clickable {
+  cursor: pointer;
+  pointer-events: all;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+
+  &.spacing > * {
+    margin: 5px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.row {
+  flex-direction: row;
+
+  &.spacing > * {
+    margin: 0 5px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+@for $i from 1 through 4 {
+  .spacing-#{$i} {
+    &.row {
+      & > * {
+        margin: 0 calc(#{$i} * 0.5rem);
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    &.column {
+      & > * {
+        margin: calc(#{$i} * 0.5rem) 0;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.space-around {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.dash {
+  background-image: linear-gradient(90deg, $gray-mid 50%, 50%, transparent);
+  background-size: 30px 20px;
+}
+
+.loading-bg {
+  background-image: linear-gradient(90deg, transparent, $gray-light, transparent);
+  background-size: 1000px 1000px;
+  @include animation(0s, 1s, background-animation, linear, infinite);
+}
+
+@include keyframe(background-animation) {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.kepler {
+  font-family: kepler-std-semicondensed-dis, serif;
+  font-weight: 700;
+}
+
+.mono {
+  font-family: anonymous-pro, monospace;
+  letter-spacing: 0.03em;
+  line-height: 1.2em;
+}
+
+.font-center {
+  text-align: center;
+}
+
+.font-light {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.shadow-light {
+  box-shadow: 0 3px 50px #8b8b8b20;
+}
+
+.shadow-dark {
+  box-shadow: 0 3px 50px #8b8b8b50;
+}

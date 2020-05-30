@@ -1,0 +1,242 @@
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+
+  &.ring {
+    div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      border: 5px solid;
+      border-radius: 50%;
+      @include animation(0s, 1.2s, ring, cubic-bezier(0.5, 0, 0.5, 1), infinite);
+      border-color: black transparent transparent transparent;
+
+      @for $i from 1 through 3 {
+        &:nth-child(#{$i}) {
+          animation-delay: calc(0.6s - #{$i} * 0.15s);
+        }
+      }
+    }
+  }
+
+  &.dual-ring {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border-radius: 50%;
+    border: 4px solid;
+    border-color: black transparent black transparent;
+    @include animation(0s, 1.2s, dual-ring, linear, infinite);
+  }
+
+  &.ripple {
+    div {
+      position: absolute;
+      border: 3px solid black;
+      opacity: 1;
+      border-radius: 50%;
+      @include animation(0s, 1s, ripple, cubic-bezier(0, 0.2, 0.8, 1), infinite);
+
+      &:nth-child(2) {
+        animation-delay: -0.5s;
+      }
+    }
+  }
+
+  &.ellipsis {
+    div {
+      position: absolute;
+      top: 21px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+
+      background-color: $gray;
+      transform: scale(0.65);
+      margin: 0px 1px;
+      @include animation(0s, 1s, dot-scale, ease-in, infinite);
+
+      @for $i from 1 through 3 {
+        &:nth-child(#{$i}) {
+          left: calc(#{$i} * 12px - 4px);
+          animation-delay: calc(#{$i} * 0.15s - 0.15s);
+        }
+      }
+    }
+  }
+}
+
+@include keyframe(dual-ring) {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@include keyframe(ripple) {
+  0% {
+    top: 25px;
+    left: 25px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+  }
+}
+
+@include keyframe(ring) {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@include keyframe(dot-scale) {
+
+  0%,
+  70% {
+    transform: scale(0.65);
+  }
+
+  35% {
+    transform: scale(1);
+  }
+}
+
+/* fullscreen loader */
+.full-loader {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: $yellow;
+  overflow: hidden;
+
+  .fly {
+    position: absolute;
+    top: 50%;
+    margin-left: -65px;
+    left: 50%;
+    @include animation(0s, 0.4s, speeder, linear, infinite);
+
+    .base {
+      span {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-right: 100px solid $gray;
+        border-bottom: 6px solid transparent;
+
+        &:before {
+          content: "";
+          height: 22px;
+          width: 22px;
+          border-radius: 50%;
+          background: $gray;
+          position: absolute;
+          right: -110px;
+          top: -16px;
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-top: 0 solid transparent;
+          border-right: 55px solid $gray;
+          border-bottom: 16px solid transparent;
+          top: -16px;
+          right: -98px;
+        }
+      }
+
+      .face {
+        position: absolute;
+        height: 12px;
+        width: 20px;
+        background: $gray;
+        border-radius: 20px 20px 0 0;
+        transform: rotate(-40deg);
+        right: -125px;
+        top: -15px;
+
+        &:after {
+          content: "";
+          height: 12px;
+          width: 12px;
+          background: $gray;
+          right: 4px;
+          top: 7px;
+          position: absolute;
+          transform: rotate(40deg);
+          transform-origin: 50% 50%;
+          border-radius: 0 0 0 2px;
+        }
+      }
+    }
+  }
+
+  .longfazers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: -50%;
+
+    span {
+      position: absolute;
+      background: $gray;
+      border-radius: 3px;
+
+      @for $i from 1 through 19 {
+        &:nth-child(#{$i}) {
+          height: random(5) + px;
+          width: random(20) + 5%;
+          top: calc(#{$i} * 5%);
+          @include animation(0s, calc(#{random(100)} * 0.02s + 0.2s), longfazer, linear, infinite);
+        }
+      }
+    }
+  }
+}
+
+@include keyframe(speeder) {
+  @for $i from 0 through 10 {
+    #{$i}0% {
+      transform: translate(#{random(5)-3}px, #{random(5)-3}px) rotate(#{random(3)-2}deg);
+    }
+  }
+}
+
+@include keyframe(longfazer) {
+  0% {
+    left: 150%;
+  }
+
+  100% {
+    left: -50%;
+    opacity: 0;
+  }
+}
